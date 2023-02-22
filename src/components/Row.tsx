@@ -16,7 +16,6 @@ export default function Row({data, columns, index, parentIndexes = []}: IProps) 
 
 	const handleRemove = useCallback<MouseEventHandler<HTMLTableCellElement>>((e) => {
 		e.stopPropagation()
-		e.preventDefault()
 		dispatch(removeNode([...parentIndexes, index]))
 	}, [index, parentIndexes, dispatch])
 
@@ -34,7 +33,7 @@ export default function Row({data, columns, index, parentIndexes = []}: IProps) 
 				{columns.map((col) => <td key={data.data[col]}>{data.data[col]}</td>)}
 				<td className='delete' onClick={handleRemove}>x</td>
 			</tr>
-			{!!children && showChildren && <tr className={cn}>
+			{!!children?.length && showChildren && <tr className={cn}>
 				<td colSpan={columns.length + 2}>
 					<Table parentIndexes={[...parentIndexes, index]} data={children} />
 				</td>
